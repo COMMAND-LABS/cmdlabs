@@ -201,9 +201,45 @@ The `dev-start.sh` script uses AppleScript. If it doesn't work:
 - Try using `dev-start-simple.sh` instead
 - Or manually start each service in separate terminals
 
+### 7. Attach Editor to Dev Container
+
+Attach Cursor or VS Code to a running dev container for debugging and development:
+
+**Attach to ai-api container:**
+
+```bash
+./dev-attach-ai-api.sh [cursor|code]
+# Defaults to cursor if not specified
+./dev-attach-ai-api.sh
+```
+
+**Attach to any service:**
+
+```bash
+./dev-attach-all.sh [service-name] [cursor|code]
+# Examples:
+./dev-attach-all.sh ai-api cursor
+./dev-attach-all.sh embeddings-api code
+./dev-attach-all.sh reranker-api
+```
+
+**Requirements:**
+
+- Container must be running (script will start it if needed)
+- Remote - Containers extension installed in Cursor/VS Code
+- If extension not installed, script will open local folder with instructions
+
+**What it does:**
+
+- Checks if container is running, starts it if needed
+- Attaches editor to the running container
+- Opens workspace at `/code` inside the container
+- Provides fallback instructions if Remote Containers extension isn't installed
+
 ## Notes
 
 - The cloud functions (qna-ingest and txt-ingest) use the Google Cloud Functions Framework for local development
 - All Python services use uvicorn with hot-reload enabled
 - The UI uses Next.js development server with hot-reload
 - Docker Compose services use volume mounts for live code reloading
+- Use the attach scripts to develop directly inside containers with full access to containerized dependencies
