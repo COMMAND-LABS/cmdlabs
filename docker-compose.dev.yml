@@ -1,0 +1,62 @@
+# Docker Compose version is obsolete in newer versions, but kept for compatibility
+# version: "3.8"
+
+services:
+  ai-api:
+    build:
+      context: ./kalygo3-ai-api
+      dockerfile: Dockerfile.dev
+    container_name: kalygo3-ai-api
+    ports:
+      - "4000:4000"
+      - "5678:5678" # Debug port
+    volumes:
+      - ./kalygo3-ai-api:/code
+    env_file:
+      - ./kalygo3-ai-api/.env
+    environment:
+      - PYTHONPATH=/code
+      - ENVIRONMENT=development
+
+    command: uvicorn src.main:app --host 0.0.0.0 --port 4000 --proxy-headers --reload
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  embeddings-api:
+    build:
+      context: ./kalygo3-embeddings-api
+      dockerfile: Dockerfile.dev
+    container_name: kalygo3-embeddings-api
+    ports:
+      - "9000:9000"
+      - "5679:5678" # Debug port
+    volumes:
+      - ./kalygo3-embeddings-api:/code
+    environment:
+      - PYTHONPATH=/code
+    command: uvicorn src.main:app --host 0.0.0.0 --port 9000 --proxy-headers --reload
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  reranker-api:
+    build:
+      context: ./kalygo3-reranker-api
+      dockerfile: Dockerfile.dev
+    container_name: kalygo3-reranker-api
+    ports:
+      - "7100:7100"
+      - "5680:5678" # Debug port
+    volumes:
+      - ./kalygo3-reranker-api:/code
+    environment:
+      - PYTHONPATH=/code
+    command: uvicorn src.main:app --host 0.0.0.0 --port 7100 --proxy-headers --reload
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+networks:
+  agent-network:
+    external: true
