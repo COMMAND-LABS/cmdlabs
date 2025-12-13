@@ -4,11 +4,10 @@ How to use this project
 
 ## High-level technique
 
-1. Run the APIs
+1. Run the APIs (ie the ai-api, embeddings-api, reranker-api)
 
-- ai-api
-- embeddings-api
-- reranker-api
+- Make sure Docker is running
+- `docker compose -f docker-compose.dev.yml up`
 
 2. Run the UI
 
@@ -21,8 +20,3 @@ How to use this project
 ## Prerequisites
 
 - Docker Desktop (https://www.docker.com/products/docker-desktop/)
-
-## Running the APIs in Docker
-
-- Make sure Docker is running
-- `docker compose -f docker-compose.dev.yml up`
