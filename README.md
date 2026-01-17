@@ -20,3 +20,5 @@ How to use this project
 ## Prerequisites
 
 - Docker Desktop (https://www.docker.com/products/docker-desktop/)
+- a docker network called: `agent-network`
+  - `docker network create agent-network`
