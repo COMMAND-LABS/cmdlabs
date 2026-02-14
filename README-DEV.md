@@ -23,6 +23,7 @@ Opens each microservice in a new terminal tab/window. Best for development where
 **Services started:**
 
 - kalygo3-ai-api (port 4000)
+- kalygo3-completion-api (port 4100) — streaming completion microservice
 - kalygo3-embeddings-api (port 9000)
 - kalygo3-reranker-api (port 7100)
 - kalygo3-ui (port 3000)
@@ -168,6 +169,7 @@ docker-compose -f docker-compose.ingest.yml down
 Once started, services will be available at:
 
 - **AI API**: http://localhost:4000
+- **Completion API**: http://localhost:4100 (streaming completion)
 - **Embeddings API**: http://localhost:9000
 - **Reranker API**: http://localhost:7100
 - **UI**: http://localhost:3000
