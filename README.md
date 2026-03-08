@@ -12,7 +12,9 @@ How to use this project
 ## How to boot up the development environment
 
 - Run the APIs: `docker compose -f docker-compose.dev.yml up`
-- Attach dev containers as needed ie: `./dev-attach-ai-api.sh`
+- Attach dev containers as needed ie:
+  - `./dev-attach-ai-api.sh`
+  - `./dev-attach-completion-api.sh`
 - Run the UI: `https://github.com/Kalygo-io/kalygo3-ui`
 
 ## Services (Docker Compose)

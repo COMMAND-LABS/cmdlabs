@@ -67,7 +67,7 @@ services:
     volumes:
       - ./kalygo3-completion-api:/code
     env_file:
-      - ./kalygo3-ai-api/.env
+      - ./kalygo3-completion-api/.env
     environment:
       - PYTHONPATH=/code
     command: uvicorn src.main:app --host 0.0.0.0 --port 4100 --proxy-headers --reload
