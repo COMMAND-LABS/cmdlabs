@@ -24,7 +24,7 @@ Opens each microservice in a new terminal tab/window. Best for development where
 
 - kalygo3-ai-api (port 4000)
 - kalygo3-completion-api (port 4100) — streaming completion microservice
-- kalygo3-embeddings-api (port 9000)
+- kalygo3-embeddings-api (port 9100)
 - kalygo3-reranker-api (port 7100)
 - kalygo3-ui (port 3000)
 - kalygo3-qna-ingest-cloud-function (port 8080)
@@ -68,7 +68,7 @@ Stops all Kalygo microservices that are currently running by process name patter
 
 ### 4. `dev-kill-ports.sh` - Kill processes on microservice ports
 
-Kills any processes running on the ports used by Kalygo microservices (4000, 9000, 7100, 3000, 8080, 8081). Useful when ports are stuck or occupied by unknown processes.
+Kills any processes running on the ports used by Kalygo microservices (4000, 9100, 7100, 3000, 8080, 8081). Useful when ports are stuck or occupied by unknown processes.
 
 **Usage:**
 
@@ -170,7 +170,7 @@ Once started, services will be available at:
 
 - **AI API**: http://localhost:4000
 - **Completion API**: http://localhost:4100 (streaming completion)
-- **Embeddings API**: http://localhost:9000
+- **Embeddings API**: http://localhost:9100
 - **Reranker API**: http://localhost:7100
 - **UI**: http://localhost:3000
 - **QnA Ingest Function**: http://localhost:8080

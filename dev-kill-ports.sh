@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Ports used by Kalygo microservices
-PORTS=(4000 4100 9000 7100 3000 8080 8081)
+PORTS=(4000 4100 9100 7100 3000 8080 8081)
 SERVICE_NAMES=(
     "kalygo3-ai-api"
     "kalygo3-completion-api"

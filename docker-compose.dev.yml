@@ -29,13 +29,13 @@ services:
       dockerfile: Dockerfile.dev
     container_name: kalygo3-embeddings-api
     ports:
-      - "9000:9000"
+      - "9100:9100"
       - "5679:5678" # Debug port
     volumes:
       - ./kalygo3-embeddings-api:/code
     environment:
       - PYTHONPATH=/code
-    command: uvicorn src.main:app --host 0.0.0.0 --port 9000 --proxy-headers --reload
+    command: uvicorn src.main:app --host 0.0.0.0 --port 9100 --proxy-headers --reload
     networks:
       - agent-network
     restart: unless-stopped

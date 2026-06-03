@@ -22,7 +22,7 @@ pkill -f "functions-framework.*processTxtIngestTopicMessage" 2>/dev/null && echo
 
 # Also try to kill by port (more aggressive)
 lsof -ti:4000 | xargs kill -9 2>/dev/null || true
-lsof -ti:9000 | xargs kill -9 2>/dev/null || true
+lsof -ti:9100 | xargs kill -9 2>/dev/null || true
 lsof -ti:7100 | xargs kill -9 2>/dev/null || true
 lsof -ti:3000 | xargs kill -9 2>/dev/null || true
 lsof -ti:8080 | xargs kill -9 2>/dev/null || true
