@@ -40,22 +40,22 @@ services:
       - agent-network
     restart: unless-stopped
 
-  reranker-api:
-    build:
-      context: ./kalygo3-reranker-api
-      dockerfile: Dockerfile.dev
-    container_name: kalygo3-reranker-api
-    ports:
-      - "7100:7100"
-      - "5680:5678" # Debug port
-    volumes:
-      - ./kalygo3-reranker-api:/code
-    environment:
-      - PYTHONPATH=/code
-    command: uvicorn src.main:app --host 0.0.0.0 --port 7100 --proxy-headers --reload
-    networks:
-      - agent-network
-    restart: unless-stopped
+  # reranker-api:
+  #   build:
+  #     context: ./kalygo3-reranker-api
+  #     dockerfile: Dockerfile.dev
+  #   container_name: kalygo3-reranker-api
+  #   ports:
+  #     - "7100:7100"
+  #     - "5680:5678" # Debug port
+  #   volumes:
+  #     - ./kalygo3-reranker-api:/code
+  #   environment:
+  #     - PYTHONPATH=/code
+  #   command: uvicorn src.main:app --host 0.0.0.0 --port 7100 --proxy-headers --reload
+  #   networks:
+  #     - agent-network
+  #   restart: unless-stopped
 
   completion-api:
     build:
