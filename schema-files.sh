@@ -11,7 +11,7 @@
 # (modulo JSON formatting / key order). Add more groups here as the shared
 # contract grows (e.g. agent_config.v4.json).
 SCHEMA_GROUPS=(
-  "kalygo3-ai-api/src/schemas/chat_message.v2.json kalygo3-completion-api/src/schemas/chat_message.v2.json kalygo3-ui/src/schemas/chat-message.v2.json"
+  "kalygo3-ai-api/src/schemas/chat_message.v2.json kalygo3-agent-api/src/schemas/chat_message.v2.json kalygo3-ui/src/schemas/chat-message.v2.json"
 )
 
 # Canonicalize a JSON file (sorted keys, fixed indent) so that whitespace and
