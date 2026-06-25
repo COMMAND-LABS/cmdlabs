@@ -57,17 +57,17 @@ services:
   #     - agent-network
   #   restart: unless-stopped
 
-  completion-api:
+  agent-api:
     build:
-      context: ./kalygo3-completion-api
+      context: ./kalygo3-agent-api
       dockerfile: Dockerfile.dev
-    container_name: kalygo3-completion-api
+    container_name: kalygo3-agent-api
     ports:
       - "4100:4100"
     volumes:
-      - ./kalygo3-completion-api:/code
+      - ./kalygo3-agent-api:/code
     env_file:
-      - ./kalygo3-completion-api/.env
+      - ./kalygo3-agent-api/.env
     environment:
       - PYTHONPATH=/code
     command: uvicorn src.main:app --host 0.0.0.0 --port 4100 --proxy-headers --reload
