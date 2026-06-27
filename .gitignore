@@ -3,8 +3,6 @@ kalygo3-embeddings-api
 kalygo3-reranker-api
 kalygo3-completion-api
 kalygo3-ui
-kalygo3-qna-ingest-cloud-function
-kalygo3-txt-ingest-cloud-function
 kalygo3-qna-ingest-cloud-function-python
 kalygo3-txt-ingest-cloud-function-python
 bolay.kalygo.io
