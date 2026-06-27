@@ -14,6 +14,15 @@ SCHEMA_GROUPS=(
   "kalygo3-ai-api/src/schemas/chat_message.v2.json kalygo3-agent-api/src/schemas/chat_message.v2.json kalygo3-ui/src/schemas/chat-message.v2.json"
 )
 
+# Raw shared files that must be kept BYTE-IDENTICAL across services (no JSON
+# normalization — compared with `cmp`). Same "<canonical> <mirror> ..." format.
+# Used for shared Python source that lives in more than one service but cannot
+# (yet) be a real shared package — e.g. the agent access-control rule, which the
+# agent-api and ai-api must enforce identically. See that module's docstring.
+RAW_SYNC_GROUPS=(
+  "kalygo3-ai-api/src/services/agent_access.py kalygo3-agent-api/src/services/agent_access.py"
+)
+
 # Canonicalize a JSON file (sorted keys, fixed indent) so that whitespace and
 # key-ordering differences do NOT register as drift — only semantic content.
 schema_normalize() {

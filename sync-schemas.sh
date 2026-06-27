@@ -27,4 +27,21 @@ for group in "${SCHEMA_GROUPS[@]}"; do
   done
 done
 
+# Raw byte-identical shared files (e.g. shared Python source).
+for group in "${RAW_SYNC_GROUPS[@]}"; do
+  # shellcheck disable=SC2206  # paths contain no spaces; intentional word-split
+  files=($group)
+  canonical="${files[0]}"
+
+  if [[ ! -f "$canonical" ]]; then
+    echo "✗ canonical missing: $canonical"
+    exit 1
+  fi
+
+  for mirror in "${files[@]:1}"; do
+    cp "$canonical" "$mirror"
+    echo "→ synced: $mirror  (from $canonical)"
+  done
+done
+
 echo "Done. Mirrors now match canonical — review & commit the changes."
