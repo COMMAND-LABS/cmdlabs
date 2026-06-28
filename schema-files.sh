@@ -24,6 +24,7 @@ RAW_SYNC_GROUPS=(
   "kalygo3-ai-api/src/services/agent_access.py kalygo3-agent-api/src/services/agent_access.py"
   "kalygo3-ai-api/src/services/credential_access.py kalygo3-agent-api/src/services/credential_access.py"
   "kalygo3-ai-api/src/services/vector_store_credentials.py kalygo3-agent-api/src/services/vector_store_credentials.py"
+  "kalygo3-ai-api/src/services/access.py kalygo3-agent-api/src/services/access.py"
 )
 
 # Canonicalize a JSON file (sorted keys, fixed indent) so that whitespace and
