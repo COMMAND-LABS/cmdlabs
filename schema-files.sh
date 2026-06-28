@@ -11,8 +11,8 @@
 # (modulo JSON formatting / key order). Add more groups here as the shared
 # contract grows.
 SCHEMA_GROUPS=(
-  "kalygo3-ai-api/src/schemas/chat_message.v2.json kalygo3-agent-api/src/schemas/chat_message.v2.json kalygo3-ui/src/schemas/chat-message.v2.json"
-  "kalygo3-ai-api/src/schemas/agent_config.v4.json kalygo3-agent-api/src/schemas/agent_config.v4.json kalygo3-ui/src/schemas/agent-config.v4.json"
+  "kalygo3-ai-api/src/schemas/chat_message.v2.json kalygo3-agent-api/src/schemas/chat_message.v2.json kalygo3-ui/src/schemas/chat-message.v2.json bolay.kalygo.io/src/schemas/chat-message.v2.json"
+  "kalygo3-ai-api/src/schemas/agent_config.v4.json kalygo3-agent-api/src/schemas/agent_config.v4.json kalygo3-ui/src/schemas/agent-config.v4.json bolay.kalygo.io/src/schemas/agent-config.v4.json"
 )
 
 # Raw shared files that must be kept BYTE-IDENTICAL across services (no JSON
