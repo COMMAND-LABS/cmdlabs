@@ -15,7 +15,7 @@ How to use this project
 - Attach dev containers as needed ie:
   - `./dev-attach-ai-api.sh`
   - `./dev-attach-completion-api.sh`
-- Run the UI: `https://github.com/Kalygo-io/kalygo3-ui`
+- Run the UI: `https://github.com/COMMAND-LABS/cmdlabs-ui`
 
 ## Services (Docker Compose)
 
