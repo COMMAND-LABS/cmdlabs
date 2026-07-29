@@ -1,13 +1,3 @@
-kalygo3-ai-api
-kalygo3-embeddings-api
-kalygo3-reranker-api
-kalygo3-completion-api
-kalygo3-ui
-kalygo3-qna-ingest-cloud-function-python
-kalygo3-txt-ingest-cloud-function-python
-bolay.kalygo.io
-kalygo3-agent-api
-
 cmdlabs-agent-api
 cmdlabs-api
 cmdlabs-embeddings-api
