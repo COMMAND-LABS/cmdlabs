@@ -2,18 +2,18 @@
 # version: "3.8"
 
 services:
-  ai-api:
+  api:
     build:
-      context: ./kalygo3-ai-api
+      context: ./cmdlabs-api
       dockerfile: Dockerfile.dev
-    container_name: kalygo3-ai-api
+    container_name: cmdlabs-api
     ports:
       - "4000:4000"
       - "5678:5678" # Debug port
     volumes:
-      - ./kalygo3-ai-api:/code
+      - ./cmdlabs-api:/code
     env_file:
-      - ./kalygo3-ai-api/.env
+      - ./cmdlabs-api/.env
     environment:
       - PYTHONPATH=/code
       - ENVIRONMENT=development
@@ -25,14 +25,14 @@ services:
 
   embeddings-api:
     build:
-      context: ./kalygo3-embeddings-api
+      context: ./cmdlabs-embeddings-api
       dockerfile: Dockerfile.dev
-    container_name: kalygo3-embeddings-api
+    container_name: cmdlabs-embeddings-api
     ports:
       - "9100:9100"
       - "5679:5678" # Debug port
     volumes:
-      - ./kalygo3-embeddings-api:/code
+      - ./cmdlabs-embeddings-api:/code
     environment:
       - PYTHONPATH=/code
     command: uvicorn src.main:app --host 0.0.0.0 --port 9100 --proxy-headers --reload
@@ -40,34 +40,17 @@ services:
       - agent-network
     restart: unless-stopped
 
-  # reranker-api:
-  #   build:
-  #     context: ./kalygo3-reranker-api
-  #     dockerfile: Dockerfile.dev
-  #   container_name: kalygo3-reranker-api
-  #   ports:
-  #     - "7100:7100"
-  #     - "5680:5678" # Debug port
-  #   volumes:
-  #     - ./kalygo3-reranker-api:/code
-  #   environment:
-  #     - PYTHONPATH=/code
-  #   command: uvicorn src.main:app --host 0.0.0.0 --port 7100 --proxy-headers --reload
-  #   networks:
-  #     - agent-network
-  #   restart: unless-stopped
-
   agent-api:
     build:
-      context: ./kalygo3-agent-api
+      context: ./cmdlabs-agent-api
       dockerfile: Dockerfile.dev
-    container_name: kalygo3-agent-api
+    container_name: cmdlabs-agent-api
     ports:
       - "4100:4100"
     volumes:
-      - ./kalygo3-agent-api:/code
+      - ./cmdlabs-agent-api:/code
     env_file:
-      - ./kalygo3-agent-api/.env
+      - ./cmdlabs-agent-api/.env
     environment:
       - PYTHONPATH=/code
     command: uvicorn src.main:app --host 0.0.0.0 --port 4100 --proxy-headers --reload
@@ -77,7 +60,7 @@ services:
 
   postgres:
     image: postgres:16
-    container_name: kalygo-test-pg
+    container_name: cmdlabs-test-pg
     ports:
       - "5432:5432"
     environment:
