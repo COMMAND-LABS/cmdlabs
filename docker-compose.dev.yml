@@ -73,6 +73,38 @@ services:
       - agent-network
     restart: unless-stopped
 
+  # Stripe webhook forwarder for local development.
+  #
+  # Behind the "stripe" profile so it does NOT start with a plain `up` — run it
+  # only when you are testing payments:
+  #
+  #   docker compose -f docker-compose.dev.yml --profile stripe up stripe-cli
+  #
+  # It prints `Ready! Your webhook signing secret is whsec_...`. Copy that into
+  # cmdlabs-api/.env as STRIPE_WEBHOOK_SECRET, then recreate the api container
+  # (`up -d api`) — compose reads env_file at container creation, so a restart
+  # will not pick it up.
+  #
+  # Two things that are easy to get wrong:
+  #   - forward-to uses the container hostname `cmdlabs-api`, not localhost;
+  #     inside this container localhost is the CLI itself.
+  #   - the key, the price id, and the webhook secret must all belong to the
+  #     same Stripe account (a Sandbox is a separate account from test mode).
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    container_name: cmdlabs-stripe-cli
+    profiles: ["stripe"]
+    env_file:
+      - ./cmdlabs-api/.env
+    entrypoint: /bin/sh
+    # $$ escapes compose interpolation so the shell inside the container is the
+    # one that expands STRIPE_SECRET_KEY, which arrives via env_file.
+    command: -c 'stripe listen --api-key "$$STRIPE_SECRET_KEY" --forward-to http://cmdlabs-api:4000/api/billing/webhook'
+    networks:
+      - agent-network
+    depends_on:
+      - api
+
 networks:
   agent-network:
     external: true
