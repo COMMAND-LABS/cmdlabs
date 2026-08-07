@@ -17,6 +17,8 @@ RAW_SYNC_GROUPS=(
   "cmdlabs-api/src/db/models.py cmdlabs-agent-api/src/db/models.py"
   "cmdlabs-api/src/db/service_name.py cmdlabs-agent-api/src/db/service_name.py"
   "cmdlabs-api/src/db/space_models.py cmdlabs-agent-api/src/db/space_models.py"
+  "cmdlabs-api/src/config/plans_registry.py cmdlabs-agent-api/src/config/plans_registry.py"
+  "cmdlabs-api/src/config/modules_registry.py cmdlabs-agent-api/src/config/modules_registry.py"
   "cmdlabs-api/src/services/access.py cmdlabs-agent-api/src/services/access.py"
   "cmdlabs-api/src/services/org_scope.py cmdlabs-agent-api/src/services/org_scope.py"
   "cmdlabs-api/src/services/agent_access.py cmdlabs-agent-api/src/services/agent_access.py"
