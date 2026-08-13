@@ -17,6 +17,9 @@ services:
     environment:
       - PYTHONPATH=/code
       - ENVIRONMENT=development
+      # Container runs as root; this tells Claude Code it's in an isolated
+      # sandbox so bypass-permissions mode is allowed.
+      - IS_SANDBOX=1
 
     command: uvicorn src.main:app --host 0.0.0.0 --port 4000 --proxy-headers --reload
     networks:
@@ -36,24 +39,6 @@ services:
     environment:
       - PYTHONPATH=/code
     command: uvicorn src.main:app --host 0.0.0.0 --port 9100 --proxy-headers --reload
-    networks:
-      - agent-network
-    restart: unless-stopped
-
-  agent-api:
-    build:
-      context: ./cmdlabs-agent-api
-      dockerfile: Dockerfile.dev
-    container_name: cmdlabs-agent-api
-    ports:
-      - "4100:4100"
-    volumes:
-      - ./cmdlabs-agent-api:/code
-    env_file:
-      - ./cmdlabs-agent-api/.env
-    environment:
-      - PYTHONPATH=/code
-    command: uvicorn src.main:app --host 0.0.0.0 --port 4100 --proxy-headers --reload
     networks:
       - agent-network
     restart: unless-stopped
