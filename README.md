@@ -11,7 +11,9 @@ How to use this project
 
 ## How to boot up the development environment
 
-- Run the APIs: `docker compose -f docker-compose.dev.yml up`
+- Run the APIs: `docker compose -f docker-compose.dev.yml up -d`
+- Show logs (all services): `docker compose -f docker-compose.dev.yml logs -f`
+- Show logs for one container: `docker logs -f cmdlabs-api` (or `cmdlabs-embeddings-api`, `cmdlabs-test-pg`)
 - Attach dev containers as needed ie:
   - `./dev-attach-ai-api.sh`
   - `./dev-attach-completion-api.sh`
