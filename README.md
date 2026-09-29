@@ -1,31 +1,44 @@
-# TLDR
+# cmdlabs
 
-How to use this project
+Workspace folder for the Command Labs services. Each directory below is its own
+git repo (clone, branch and commit inside it); this root repo only holds this
+README, `.gitignore` and `docker-compose.dev.yml`.
 
-## Prerequisites
+## What's here
 
-- Docker Desktop (https://www.docker.com/products/docker-desktop/)
-- Make sure Docker Engine is running
-- a docker network called: `agent-network`
-  - `docker network create agent-network`
+| Path | What it is |
+| --- | --- |
+| `cmdlabs-api/` | Main FastAPI backend (agents, auth, billing, KBs, …). `runner/` inside it is a separate, self-contained sandbox service that executes model-written Python and trains forecast models. |
+| `cmdlabs-ui/` | Next.js frontend (`npm run dev` serves it on port 3001). |
+| `cmdlabs-embeddings-api/` | FastAPI service that generates embeddings with sentence-transformers (all-MiniLM-L6-v2). |
+| `cmdlabs-qna-ingest-cloud-function-python/` | Cloud Function that ingests Q&A `.csv` knowledge into Pinecone. |
+| `cmdlabs-txt-ingest-cloud-function-python/` | Cloud Function that ingests `.txt` / `.md` files from GCS into Pinecone. |
+| `tariff-n-duty-scraper/` | Scheduled duty & tariff research job (`tnd_agent`) that writes proposed tariff changes to the cmdlabs DB. See its README. |
+| `docker-compose.dev.yml` | Local dev stack (below). |
+| `scratch/` | Scratch files; not part of any service. |
 
-## How to boot up the development environment
+## Dev stack
 
-- Run the APIs: `docker compose -f docker-compose.dev.yml up -d`
-- Show logs (all services): `docker compose -f docker-compose.dev.yml logs -f`
-- Show logs for one container: `docker logs -f cmdlabs-api` (or `cmdlabs-embeddings-api`, `cmdlabs-test-pg`)
-- Attach dev containers as needed ie:
-  - `./dev-attach-ai-api.sh`
-  - `./dev-attach-completion-api.sh`
-- Run the UI: `https://github.com/COMMAND-LABS/cmdlabs-ui`
+Prerequisites: Docker Desktop running, and the shared network:
 
-## Services (Docker Compose)
+```sh
+docker network create agent-network   # once
+```
 
-| Service        | Port | Description                                     |
-| -------------- | ---- | ----------------------------------------------- |
-| ai-api         | 4000 | Core API (agents CRUD, auth, credentials, etc.) |
-| completion-api | 4100 | Streaming completion (POST …/completion)        |
-| embeddings-api | 9100 | Embeddings                                      |
-| reranker-api   | 7100 | Reranker                                        |
+Start / follow logs / stop:
 
-The **completion** endpoint (`POST /api/agents/{id}/completion`) runs on the **Completion API** (port 4100). Point the UI or clients at `http://localhost:4100` for streaming chat; use `http://localhost:4000` for all other API routes. If your UI uses a single API base URL, configure it to call the Completion API (e.g. `COMPLETION_API_URL=http://localhost:4100`) for completion requests and the AI API for the rest.
+```sh
+docker compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml logs -f
+docker compose -f docker-compose.dev.yml down
+```
+
+| Service | Container | Port(s) | Notes |
+| --- | --- | --- | --- |
+| `api` | `cmdlabs-api` | 4000, 5678 (debug) | Mounts `./cmdlabs-api`, reads `cmdlabs-api/.env`, uvicorn `--reload`. |
+| `embeddings-api` | `cmdlabs-embeddings-api` | 9100, 5679→5678 (debug) | Mounts `./cmdlabs-embeddings-api`, uvicorn `--reload`. |
+| `postgres` | `cmdlabs-test-pg` | 5432 | Postgres 16 (`test`/`test`, db `kalygo_test`), volume `pgdata`. |
+| `stripe-cli` | `cmdlabs-stripe-cli` | — | Only with `--profile stripe`; forwards Stripe webhooks to the api. See the comments in `docker-compose.dev.yml`. |
+
+Logs for one container: `docker logs -f cmdlabs-api`. The UI is not in compose;
+run it from `cmdlabs-ui/` with `npm run dev`.
